@@ -7,12 +7,15 @@ template <typename T>
 class avl_tree {
 public:
     avl_tree() = default;
-    avl_tree(const avl_tree& t) = delete;
-    avl_tree& operator=(const avl_tree& t) = delete;
     void add(T key);
     void bshow() const; 
     void clear();
     ~avl_tree();
+
+    //Se não for usadas, remover essas
+    //declarações
+    //avl_tree(const avl_tree& t) = delete;
+    //avl_tree& operator=(const avl_tree& t) = delete;
     
 private:
     Node<T> *root {nullptr};

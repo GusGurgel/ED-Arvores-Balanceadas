@@ -3,19 +3,30 @@
 #include "avl.h"
 using namespace std;
 
-// retorna a altura do nó.
-// se a arvore for vazia ela tem altura 0
-// caso contrario, retorna o valor que está no campo height
+/*-------{heigth}---------
+ > retorna a alura do nó.
+ > se é vazio, então a 
+ > altura é zero
+------------------------*/
 template <typename T>
 int avl_tree<T>::height(Node<T> *node) {
     return (node == nullptr) ? 0 : node->height;
 }
 
+/*--------{balance}----------
+ > retorna o balanço do nó
+ > baseado nas alturas direta
+ > e esquerda.
+ ----------------------------*/
 template <typename T>
 int avl_tree<T>::balance(Node<T> *node) {
     return height(node->right) - height(node->left);
 }
 
+/*-------{rightRotation}---------
+ > efetura rotação a direita no
+ > nó p.
+ --------------------------------*/
 template <typename T>
 Node<T>* avl_tree<T>::rightRotation(Node<T> *p) {
     Node<T> *u = p->left;
@@ -27,6 +38,10 @@ Node<T>* avl_tree<T>::rightRotation(Node<T> *p) {
     return u;
 }
 
+/*-------{leftRotation}---------
+ > efetura rotação a esquerda no
+ > nó p.
+ --------------------------------*/
 template <typename T>
 Node<T>* avl_tree<T>::leftRotation(Node<T> *p) {
     Node<T> *u = p->right;
@@ -38,16 +53,21 @@ Node<T>* avl_tree<T>::leftRotation(Node<T> *p) {
     return u;
 }
 
-// função pública que recebe uma chave e a insere
-// somente se ela não for repetida
+/*--------------{add}----------------
+ > Chamada recursiva do método pri-
+ > vado recursivo add.
+ -----------------------------------*/
 template <typename T>
 void avl_tree<T>::add(T key) {
     root = add(root, key);
 }
 
-// função recursiva privada que recebe uma raiz de arvore
-// e uma chave e insere a chave na tree se e somente se 
-// ela nao for repetida. Claro, tem que deixar AVL novamente
+/*--------------{add}----------------
+ > método que recebe uma chave (key)
+ > e adiciona (de forma recursiva) 
+ > na árvore. Se a chave já estiver, 
+ > então não faz nada.
+ -----------------------------------*/
 template <typename T>
 Node<T>* avl_tree<T>::add(Node<T> *p, T key) {
     if(p == nullptr)
@@ -64,6 +84,11 @@ Node<T>* avl_tree<T>::add(Node<T> *p, T key) {
     return p;
 }
 
+/*---------{fixup_node}-----------
+ > Calcula altura e balanço e re-
+ > solve problemas de balancea-
+ > mento do nó p.
+ ---------------------------------*/
 template <typename T>
 Node<T>* avl_tree<T>::fixup_node(Node<T> *p, T key) {
     // recalcula a altura de p
@@ -93,11 +118,20 @@ Node<T>* avl_tree<T>::fixup_node(Node<T> *p, T key) {
     return p;
 }
 
+/*---------{clear}-----------
+ > chamada do método recursi-
+ > vo privado que limpa a
+ > árvore
+ ----------------------------*/
 template <typename T>
 void avl_tree<T>::clear() {
     root = clear(root);
 }
 
+/*---------{clear}-----------
+ > método recursivo que limpa 
+ > a árvore.
+ ----------------------------*/
 template <typename T>
 Node<T> *avl_tree<T>::clear(Node<T> *node) {
     if(node != nullptr) {
@@ -108,6 +142,9 @@ Node<T> *avl_tree<T>::clear(Node<T> *node) {
     return nullptr;
 }
 
+/*-----{~avl_tree}------
+ > destrutor de classe
+ -----------------------*/
 template <typename T>
 avl_tree<T>::~avl_tree() {
     clear();
@@ -136,10 +173,9 @@ void avl_tree<T>::bshow(Node<T> *node, std::string heranca) const {
 }
 
 
-
-/* ---------------------- 
-Intanciação dos templates 
-que vão ser usados pelo
-programa principal 
------------------------- */
-//template class avl_tree<int>;
+/* ------------------------ 
+Instanciação dos templates 
+que vão ser usados pelo pro-
+grama principal.
+--------------------------- */
+template class avl_tree<int>;
