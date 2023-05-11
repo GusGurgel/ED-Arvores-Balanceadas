@@ -14,22 +14,17 @@
 
 #include "gdate.h"
 
-
-//Essa é a expressão regular referente a uma
-//data no formato DD/MM/YYYY
-const std::regex GDate::regexDate ("(\\d{1,2})\\/(\\d{1,2})\\/(\\d{4})");
+//------------------------------------
+//   { Destrutores e Construtores }
+//------------------------------------
 
 GDate::GDate(std::string str){
 	setDate(str);
 }
 
-ostream &operator<<(ostream &os, const GDate &date) {
-	os << std::setfill('0') << std::setw(2) << date.month << "/";
-	os << std::setw(2) << date.day << "/";
-	os << std::setw(4) << date.year;
-	return os;
-}
-
+//----------------------------
+//   { Métodos Públicos }
+//----------------------------
 void GDate::setDate(std::string str){
 	std::smatch regexMatch; //recebe os resulados da procura
 
@@ -59,3 +54,15 @@ int GDate::compareDate(const GDate& date1, const GDate& date2){
 		return 0;
 	}
 }
+
+ostream &operator<<(ostream &os, const GDate &date) {
+	os << std::setfill('0') << std::setw(2) << date.month << "/";
+	os << std::setw(2) << date.day << "/";
+	os << std::setw(4) << date.year;
+	return os;
+}
+
+//----------------------------
+//   { Métodos Privados }
+//----------------------------
+const std::regex GDate::regexDate ("(\\d{1,2})\\/(\\d{1,2})\\/(\\d{4})");

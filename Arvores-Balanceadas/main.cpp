@@ -22,7 +22,11 @@
 #include <fstream> //leitura de arquivos
 using namespace std;
 
-//Pega todas a pessoas do arquivo
+// ---------{getFromFile(string)}---------
+// > Pega todas a pessoas que definidas
+// > um arquivo de texto e retorna em
+// > formato de um vector.
+// ---------------------------------------
 vector<Person*>* getFromFile(string);
 
 int main() {

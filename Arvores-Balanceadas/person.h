@@ -1,3 +1,18 @@
+/**************************************************
+//
+// Projeto 1 - Estrutura de Dados Avançada UFC
+//
+// Person Class (Header file)
+//
+// Criação:     11 Mai 2023
+// Atualização: 11 Mai 2023
+//
+// Criado Por:
+// Nome: Gustavo Gurgel Medeiros
+// Número de Matrícula [UFC]: 539226
+//
+************************************************/
+
 #ifndef _PERSON_H_
 #define _PERSON_H_
 
@@ -13,23 +28,41 @@ void makeLine(uint = 30);
 
 class Person{
 public:
-    // --- Atributos Públicos Státicos ---
-
-    // --- Construtores ---
-    // construtor padrão
+    // ---{ Construtor Padrão }---
     Person() = default;
 
-    // por passagem de string (utiliza regex)
+    // ------{ Construtor Por String }------
+	// > Constroi uma pessoa a partir de uma
+	// > string.
+	// >
+    // > str = "string no formato esperado"
+	// > 
+	// > !Valida os valores passados!
+    // -------------------------------------
     Person(string);
 
-    // --- Métodos Públicos ---
+    // -----------{ setPerson }-------------
+	// > Define os atributos de uma pessoa a
+	// > partir de um string.
+	// >
+    // > str = "string no formato esperado"
+	// > 
+	// > !Valida os valores passados!
+    // -------------------------------------
     void setPerson(string);
+
+    // -------------{ show }-------------
+	// > Mostra uma pessoa de uma maneira
+    // > mais legível
+    // ----------------------------------
     void show() const;
 
-    // ---- Overloading de operadores ----
+    // --------{ &operator<< }----------
+	// > Overload do operador (<<)
+    // ---------------------------------
 	friend ostream &operator<<(ostream &, const Person &);
 
-    // --- Gets e Sets ----
+    // -------{ Gets e Sets }-------
     string getNotionalID() const;
     string getGivenName() const;
     string getSurname() const;
@@ -37,12 +70,19 @@ public:
     string getCity() const;
 
 private:
+    // ---{ Atributos Privados }---
     string nationalID;
     string givenName;
     string surname;
     GDate birthday;
     string city;
 
+    // ----------------{ regexPerson  }----------------
+	// > Expressão regular que representa uma data no 
+    // > seguinte formato:
+	// > 
+	// > "NationalID,GivenName,Surname,Birthday,City"
+    // ------------------------------------------------
     const static std::regex regexPerson;
 };
 

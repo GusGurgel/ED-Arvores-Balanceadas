@@ -22,33 +22,65 @@
 
 using std::ostream;
 
+// -----{ Typedefs }-----
 typedef unsigned int uint;
 
 class GDate {
 public:
-	// --- Construtores ---
-	//{Construtor Padrão}
+	// ---{ Construtor Padrão }---
 	GDate() = default;
-	//{Construtor por passagem de string}
-	GDate(std::string);
 
-	// --- Métodos Públicos ---
+	// ------{ Construtor Por String }------
+	// > Constroi uma data a partir de uma
+	// > string.
+	// >
+    // > str = "string no formato esperado"
+	// > 
+	// > !Valida os valores passados!
+    // -------------------------------------
+	GDate(std::string str);
+
+	// ------------{ setDate }--------------
+	// > Define os atributos da data a
+	// > partir de um string.
+	// >
+    // > str = "string no formato esperado"
+	// > 
+	// > !Valida os valores passados!
+    // -------------------------------------
 	void setDate(std::string);
 
-	// --- Métodos Públicos Státicos ---
-	static int compareDate(const GDate&, const GDate&);
+	// ----------{ compareDate }------------
+	// > Compara duas datas retornando 0 sé
+	// > as duas são iguas, 1 se a primeira
+	// > é maior que a segunda e (-1) se a
+	// > primeira é menor que a segunda.
+	// > 
+	// > 
+    // > date1 = "primeira data"
+	// > data2 = "segunda data"
+    // -------------------------------------
+	static int compareDate(const GDate& date1, const GDate& date2);
 
-	// ---- Overloading de operadores ----
+	// --------{ &operator<< }----------
+	// > Overload do operador (<<)
+    // ---------------------------------
 	friend ostream &operator<<(ostream &, const GDate &);
 
 private : 
-	// --- Atributos Privados ---
+	// ---{ Atributos Privados }---
 	uint day{0};  // Dia
 	uint month{0};// Mês
 	uint year{0}; // Ano
-
-	// --- Atributos Privados Státicos ---
-	const static std::regex regexDate; //Expressão regular de data
+	
+	// --------{ regexDate }----------
+	// > Expressão regular que re-
+	// > presenta uma data no seguin-
+	// > te formato:
+	// > 
+	// > MM/DD/YYYY
+    // -------------------------------
+	const static std::regex regexDate; 
 };
 
 #endif
