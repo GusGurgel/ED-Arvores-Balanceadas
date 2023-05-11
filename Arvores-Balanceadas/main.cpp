@@ -15,32 +15,43 @@
 
 #include "avl.h"
 #include "gdate.h"
-#include "gtypes.h"
+#include "person.h"
 
-#include <iostream>
+#include <iostream>//entrada e saida
+#include <vector>  //vetores
+#include <fstream> //leitura de arquivos
 using namespace std;
 
+//Pega todas a pessoas do arquivo
+vector<Person*>* getFromFile(string);
+
 int main() {
-	GDate d1, d2;
-	string str1, str2;
+	vector<Person*>* persons = nullptr;
 
-	cout << "Digite a primeira data: ";
-	cin >> str1;
-	d1.setDate(str1);
+	persons = getFromFile("data(reduzida).csv");
 
-	cout << "Digite a segunda data: ";
-	cin >> str2;
-	d2.setDate(str2);
-
-	if(GDate::compareDate(d1,d2) == 0){
-		cout << "as datas " << d1 << " e " << d2 << "são iguais" << endl;
-	}else{
-		if(GDate::compareDate(d1,d2) == 1){
-			cout << "a data " << d1 << " é maior que " << d2 << endl;  
-		}else{
-			cout << "a data " << d1 << " é menor que " << d2 << endl;
-		}
+	for(const Person* p : *(persons)){
+		p->show();
 	}
+
+	delete persons;
 	
 	return 0;
+}
+
+vector<Person*>* getFromFile(string fileName){
+	vector<Person*>* ret = new vector<Person*>(); //vetor de retorno
+	ifstream in_stream; //Buffer de leitura
+	string line; //linha lida do arquivo
+
+	in_stream.open(fileName);
+
+	getline(in_stream, line); //linha de cabeçalho
+
+	//Adiciona todas as pessoas ao vetor
+	while(getline(in_stream, line)){
+		ret->push_back(new Person(line));
+	}	
+
+	return ret;
 }

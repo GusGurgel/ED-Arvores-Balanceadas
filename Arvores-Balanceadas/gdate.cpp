@@ -17,7 +17,7 @@
 
 //Essa é a expressão regular referente a uma
 //data no formato DD/MM/YYYY
-std::regex GDate::regexDate ("(\\d{1,2})\\/(\\d{1,2})\\/(\\d{4})");
+const std::regex GDate::regexDate ("(\\d{1,2})\\/(\\d{1,2})\\/(\\d{4})");
 
 GDate::GDate(std::string str){
 	setDate(str);
@@ -31,18 +31,18 @@ ostream &operator<<(ostream &os, const GDate &date) {
 }
 
 void GDate::setDate(std::string str){
-	std::smatch rexMatch; //recebe os resulados da procura
+	std::smatch regexMatch; //recebe os resulados da procura
 
 	//procura a expressão regular na string
-	std::regex_search(str, rexMatch, GDate::regexDate);
+	std::regex_search(str, regexMatch, GDate::regexDate);
 
 	//trata passagem de data inválida
-	if(rexMatch.empty()){
+	if(regexMatch.empty()){
 		throw std::invalid_argument("Invalid date string \"" + str + "\"");
 	}else{
-		this->month = stoi(rexMatch.str(1)); //grupo 1 é o mês
-		this->day   = stoi(rexMatch.str(2)); //grupo 2 é o dia
-		this->year  = stoi(rexMatch.str(3)); //grupo 3 é o ano
+		this->month = stoi(regexMatch.str(1)); //grupo 1 é o mês
+		this->day   = stoi(regexMatch.str(2)); //grupo 2 é o dia
+		this->year  = stoi(regexMatch.str(3)); //grupo 3 é o ano
 	}
 }
 
