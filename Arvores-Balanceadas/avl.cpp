@@ -97,7 +97,7 @@ template <typename T> Node<T> *avl_tree<T>::add(Node<T> *p, T key) {
 		return new Node<T>(key);
 	}
 	if (key == p->key){
-		std::cout << key << " é igual a " << p->key << std::endl;
+		p->addDupe(new Node<T>(key));
 		return p;
 	}
 	if (key < p->key){
@@ -158,7 +158,7 @@ void avl_tree<T>::bshow(Node<T> *node, std::string heranca) const {
     std::cout << "#" << std::endl;
     return;
   }
-  std::cout << node->key << std::endl;
+  std::cout << node->toString() << std::endl;
   if (node != nullptr && (node->left != nullptr || node->right != nullptr))
     bshow(node->left, heranca + "l");
 }
@@ -171,3 +171,6 @@ void avl_tree<T>::bshow(Node<T> *node, std::string heranca) const {
 template class avl_tree<llint>;
 template class avl_tree<string>;
 template class avl_tree<GDate>;
+
+//temporário
+template class avl_tree<int>;

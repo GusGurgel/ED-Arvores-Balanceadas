@@ -22,7 +22,10 @@
 #include <string> //método toString
 #include <sstream>//stringstream
 
-template <typename T> struct Node {
+#include <iostream>
+
+template <typename T> 
+struct Node {
 	// Atributos
 	T key;
 	int height;
@@ -42,10 +45,9 @@ template <typename T> struct Node {
 		std::stringstream ret;
 		//adiciona a chave do nó
 		ret << this->key;
+		
 		if(dupes != nullptr){
-			for(Node<T>* node : *(dupes)){
-				ret << node->key << " ";
-			}
+			ret << "(" << (dupes->size()+1) << "x)";
 		}
 		
 		return ret.str();
@@ -53,11 +55,13 @@ template <typename T> struct Node {
 	
 	// Destrutor
 	~Node(){
-		for(Node<T>* node : *(dupes)){
-			delete node;
+		if(dupes != nullptr){
+			for(Node<T>* node : *(dupes)){
+				delete node;
+			}
+			dupes->clear();
+			delete dupes;
 		}
-		dupes->clear();
-		delete dupes;
 	}
 	
 	// Construtor

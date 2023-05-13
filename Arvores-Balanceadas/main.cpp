@@ -30,7 +30,15 @@ using namespace std;
 vector<Person*>* readFromFile(string);
 
 int main(){
-	Node<>
+	avl_tree<int> T;
+	
+	for(int i = 1; i <= 10; i++){
+		for(int j = 0; j < i; j++){
+			T.add(i);
+		}
+	} 
+	
+	T.bshow();
 }
 
 
