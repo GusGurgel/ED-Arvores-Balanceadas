@@ -24,7 +24,8 @@
 // template <typename T>
 // int defaultCompare(T, T);
 
-template <typename T> class avl_tree {
+template <typename T> 
+class avl_tree {
 public:
 
   // ---{Construtor Padrão}---

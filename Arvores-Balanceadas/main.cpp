@@ -29,31 +29,36 @@ using namespace std;
 // ---------------------------------------
 vector<Person*>* readFromFile(string);
 
-int main() {
-	vector<Person*>* persons = nullptr;
-	avl_tree<llint> TCPF;
-	avl_tree<string> TNome;
-	avl_tree<GDate>  TData;
-
-	persons = readFromFile("data(reduzida).csv");
-
-	for(const Person* p : *(persons)){
-		TCPF.add(p->getNumNationalID());
-		TNome.add(p->getGivenName());
-		TData.add(p->getBirthDay());
-	}
-	
-	cout << "Ávore de CPFS: " << endl;
-	TCPF.bshow();
-	cout << "Ávore de Nomes: " << endl;
-	TNome.bshow();
-	cout << "Ávore de Datas: " << endl;
-	TData.bshow();
-
-	delete persons;
-	
-	return 0;
+int main(){
+	Node<>
 }
+
+
+//~ int main() {
+	//~ vector<Person*>* persons = nullptr;
+	//~ avl_tree<llint> TCPF;
+	//~ avl_tree<string> TNome;
+	//~ avl_tree<GDate>  TData;
+
+	//~ persons = readFromFile("data(reduzida).csv");
+
+	//~ for(const Person* p : *(persons)){
+		//~ TCPF.add(p->getNumNationalID());
+		//~ TNome.add(p->getGivenName());
+		//~ TData.add(p->getBirthDay());
+	//~ }
+	
+	//~ cout << "Ávore de CPFS: " << endl;
+	//~ TCPF.bshow();
+	//~ cout << "Ávore de Nomes: " << endl;
+	//~ TNome.bshow();
+	//~ cout << "Ávore de Datas: " << endl;
+	//~ TData.bshow();
+
+	//~ delete persons;
+	
+	//~ return 0;
+//~ }
 
 vector<Person*>* readFromFile(string fileName){
 	vector<Person*>* ret = new vector<Person*>(); //vetor de retorno
