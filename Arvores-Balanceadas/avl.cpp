@@ -45,9 +45,24 @@ template <typename T> void avl_tree<T>::clear() {
   root = clear(root); 
 }
 
+template <typename T>
+void avl_tree<T>::inorderPrint(){
+	inorderPrint(this->root);
+}
+
 //----------------------------
 //   { Métodos Privados }
 //----------------------------
+
+template <typename T>
+void avl_tree<T>::inorderPrint(Node<T>* node){
+	if(node == nullptr){
+		return;	
+	}
+	inorderPrint(node->left);
+	std::cout << node->key << std::endl;
+	inorderPrint(node->right);
+}
 
 template <typename T> int avl_tree<T>::height(Node<T> *node) {
   return (node == nullptr) ? 0 : node->height;
@@ -78,18 +93,23 @@ template <typename T> Node<T> *avl_tree<T>::leftRotation(Node<T> *p) {
 }
 
 template <typename T> Node<T> *avl_tree<T>::add(Node<T> *p, T key) {
-  if (p == nullptr)
-    return new Node<T>(key);
-  if (key == p->key)
-    return p;
-  if (key < p->key)
-    p->left = add(p->left, key);
-  else
-    p->right = add(p->right, key);
+	if (p == nullptr){
+		return new Node<T>(key);
+	}
+	if (key == p->key){
+		std::cout << key << " é igual a " << p->key << std::endl;
+		return p;
+	}
+	if (key < p->key){
+		p->left = add(p->left, key);
+	}
+	else{
+		p->right = add(p->right, key);
+	}
 
-  p = fixup_node(p, key);
+	p = fixup_node(p, key);
 
-  return p;
+	return p;
 }
 
 template <typename T> Node<T> *avl_tree<T>::fixup_node(Node<T> *p, T key) {
@@ -148,4 +168,6 @@ void avl_tree<T>::bshow(Node<T> *node, std::string heranca) const {
 // que vão ser usados pelo pro-
 // grama principal.
 // ----------------------------
-template class avl_tree<int>;
+template class avl_tree<llint>;
+template class avl_tree<string>;
+template class avl_tree<GDate>;

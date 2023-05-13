@@ -18,6 +18,7 @@
 #ifndef _AVL_H_
 #define _AVL_H_
 #include "node.h"
+#include "gdate.h"
 #include <string>
 
 // template <typename T>
@@ -54,6 +55,14 @@ public:
   // declarações
   // avl_tree(const avl_tree& t) = delete;
   // avl_tree& operator=(const avl_tree& t) = delete;
+	
+  // ----------{clear}------------
+  // > Método público que printa 
+  // > a árvora em ordem.
+  // >
+  // > node = "raiz da árvore" 
+  // -----------------------------
+  void inorderPrint();
 
 private:
 
@@ -115,6 +124,15 @@ private:
   // > node = "raiz da árvore" 
   // ----------------------------
   Node<T> *clear(Node<T> *node);
+  
+  // ---------{clear}-----------
+  // > Método privado recursivo
+  // > que printa a árvora em 
+  // > ordem.
+  // >
+  // > node = "raiz da árvore" 
+  // ----------------------------
+  void inorderPrint(Node<T>* node);
 };
 
 #endif

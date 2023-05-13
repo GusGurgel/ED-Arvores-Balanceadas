@@ -24,6 +24,7 @@ using std::ostream;
 
 // -----{ Typedefs }-----
 typedef unsigned int uint;
+typedef long long int llint;
 
 class GDate {
 public:
@@ -66,6 +67,20 @@ public:
 	// > Overload do operador (<<)
     // ---------------------------------
 	friend ostream &operator<<(ostream &, const GDate &);
+
+	
+	// --------{ &operator<< }----------
+	// > Overload dos operadores de
+	// > comparação entre datas.
+	// > 
+	// > usa a função stática publica 
+	// > compareDate da classe GDate 
+    // ---------------------------------
+    bool operator==(const GDate&) const;
+	bool operator<(const GDate&) const;
+	bool operator>(const GDate&) const;
+	bool operator<=(const GDate&) const;
+	bool operator>=(const GDate&) const;
 
 private : 
 	// ---{ Atributos Privados }---

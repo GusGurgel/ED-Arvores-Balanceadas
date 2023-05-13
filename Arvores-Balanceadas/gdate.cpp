@@ -55,11 +55,36 @@ int GDate::compareDate(const GDate& date1, const GDate& date2){
 	}
 }
 
+//-----------------------------------
+//   { Overloading de Operadores }
+//-----------------------------------
+
 ostream &operator<<(ostream &os, const GDate &date) {
 	os << std::setfill('0') << std::setw(2) << date.month << "/";
 	os << std::setw(2) << date.day << "/";
 	os << std::setw(4) << date.year;
 	return os;
+}
+
+bool GDate::operator==(const GDate& dateCopared) const{
+	//Usa o ponteiro this para passar referência
+	return (GDate::compareDate(*(this), dateCopared) == 0);
+}
+
+bool GDate::operator<(const GDate& dateCopared) const{
+	return (GDate::compareDate(*(this), dateCopared) == -1);
+}
+
+bool GDate::operator>(const GDate& dateCopared) const{
+	return (GDate::compareDate(*(this), dateCopared) == 1);
+}
+
+bool GDate::operator<=(const GDate& dateCopared) const{
+	return (GDate::compareDate(*(this), dateCopared) == 0) || (GDate::compareDate(*(this), dateCopared) == -1);
+}
+
+bool GDate::operator>=(const GDate& dateCopared) const{
+	return (GDate::compareDate(*(this), dateCopared) == 0) || (GDate::compareDate(*(this), dateCopared) == 1);
 }
 
 //----------------------------

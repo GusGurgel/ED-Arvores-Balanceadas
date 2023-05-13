@@ -14,13 +14,6 @@
 ************************************************/
 #include "person.h"
 
-void makeLine(uint length){
-    for(uint i = 0; i < length; i++){
-        std::cout << "-";
-    }
-    std::cout << std::endl;
-}
-
 //------------------------------------
 //   { Destrutores e Construtores }
 //------------------------------------
@@ -74,8 +67,15 @@ const std::regex Person::regexPerson("(\\d{3}\\.\\d{3}.\\d{3}-\\d{2}),(.*),(.*),
 //      { Gets e Sets }
 //----------------------------
 
-string Person::getNotionalID() const{
+string Person::getNationalID() const{
     return this->nationalID;
+}
+
+llint Person::getNumNationalID() const{
+	//Os '-' e '.' são removidos da string
+	//e depois ela é convertida para long 
+	//long int com a função stoll
+    return stoll(getStringWithout(this->getNationalID(), "-."));
 }
 
 string Person::getGivenName() const{ 
@@ -92,4 +92,33 @@ GDate Person::getBirthDay() const{
 
 string Person::getCity() const{
     return this->city;
+}
+
+//----------------------------
+//        { Funções }
+//----------------------------
+
+void makeLine(uint length){
+    for(uint i = 0; i < length; i++){
+        std::cout << "-";
+    }
+    std::cout << std::endl;
+}
+
+string getStringWithout(const string& str, const string& toRemove){
+	bool canAdd; //Diz se a string pode ser adicionada no retorno
+	string ret = "";
+	for(const char& c : str){
+		canAdd = true; //suponho que posso adicionar
+		for(const char& r : toRemove){
+			//A string não pode ser adicionada
+			if(c == r){
+				canAdd = false;
+				break;
+			}
+		}
+		if(canAdd)
+			ret += c;
+	}
+	return ret;
 }

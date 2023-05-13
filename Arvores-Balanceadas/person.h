@@ -24,7 +24,15 @@
 
 using std::string;
 
-void makeLine(uint = 30);
+string getStringWithout(const string&, const string&);
+
+// ----------{ makeLine }----------
+// > Método privado que desenha uma 
+// > linha no terminal.
+// >
+// > length = "comprimento da linha"
+// ---------------------------------
+void makeLine(uint length = 30);
 
 class Person{
 public:
@@ -63,7 +71,8 @@ public:
 	friend ostream &operator<<(ostream &, const Person &);
 
     // -------{ Gets e Sets }-------
-    string getNotionalID() const;
+    llint getNumNationalID() const;
+    string getNationalID() const;
     string getGivenName() const;
     string getSurname() const;
     GDate getBirthDay() const;
