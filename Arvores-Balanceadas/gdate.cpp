@@ -71,6 +71,11 @@ bool GDate::operator==(const GDate& dateCopared) const{
 	return (GDate::compareDate(*(this), dateCopared) == 0);
 }
 
+bool GDate::operator!=(const GDate& dateCopared) const{
+	//Usa o ponteiro this para passar referência
+	return (GDate::compareDate(*(this), dateCopared) != 0);
+}
+
 bool GDate::operator<(const GDate& dateCopared) const{
 	return (GDate::compareDate(*(this), dateCopared) == -1);
 }

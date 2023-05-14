@@ -77,6 +77,7 @@ public:
 	// > compareDate da classe GDate 
     // ---------------------------------
     bool operator==(const GDate&) const;
+    bool operator!=(const GDate&) const;
 	bool operator<(const GDate&) const;
 	bool operator>(const GDate&) const;
 	bool operator<=(const GDate&) const;

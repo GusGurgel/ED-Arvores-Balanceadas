@@ -50,6 +50,20 @@ void avl_tree<T>::inorderPrint(){
 	inorderPrint(this->root);
 }
 
+template <typename T>
+Node<T>* avl_tree<T>::searchNodeByKey(T key){
+	Node<T>* current = this->root;
+	
+	while(current != nullptr && key != current->key){
+		if(key > current->key){
+			current = current->right;
+		}else if(key < current->key){
+			current = current->left;
+		}
+	}
+	return current;
+}
+
 //----------------------------
 //   { Métodos Privados }
 //----------------------------

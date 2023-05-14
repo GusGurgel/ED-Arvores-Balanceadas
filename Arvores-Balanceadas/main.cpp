@@ -31,14 +31,32 @@ vector<Person*>* readFromFile(string);
 
 int main(){
 	avl_tree<int> T;
+	string read;
+	int toFind = 0;
 	
-	for(int i = 1; i <= 10; i++){
-		for(int j = 0; j < i; j++){
-			T.add(i);
-		}
-	} 
+	for(int i = 0; i < 10; i++){
+		T.add(i);
+	}
+	
+	cout << boolalpha;
 	
 	T.bshow();
+	
+	while(true){
+		cout << "Digite um nó a ser porcurado -> ";
+		cin >> read;
+		
+		try{
+			toFind = stoi(read);
+			cout << "out -> ";
+			cout << (T.searchNodeByKey(toFind) != nullptr) << endl; 
+		}catch(exception e){
+			toFind = 0;
+			break;
+		}
+	}
+	
+	return 0;
 }
 
 

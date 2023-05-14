@@ -65,6 +65,14 @@ public:
   // -----------------------------
   void inorderPrint();
 
+  // -----------{searchKey}-----------
+  // > Método públic que pocura um nó 
+  // > com uma chave específica. 
+  // >
+  // > key = "chave a procurar" 
+  // ---------------------------------
+  Node<T>* searchNodeByKey(T key);
+	
 private:
 
   Node<T> *root{nullptr};
@@ -126,13 +134,12 @@ private:
   // ----------------------------
   Node<T> *clear(Node<T> *node);
   
-  // ---------{clear}-----------
-  // > Método privado recursivo
-  // > que printa a árvora em 
-  // > ordem.
+  // -------{inorderPrint}--------
+  // > Método privado recursivo que 
+  // > printa a árvora em ordem.
   // >
   // > node = "raiz da árvore" 
-  // ----------------------------
+  // -----------------------------
   void inorderPrint(Node<T>* node);
 };
 
