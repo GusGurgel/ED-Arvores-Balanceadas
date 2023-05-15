@@ -19,7 +19,9 @@
 #define _AVL_H_
 #include "node.h"
 #include "gdate.h"
-#include <string>
+#include <string> //palavras
+#include <vector> //retorna com múltiplos nós
+#include <stack>
 
 // template <typename T>
 // int defaultCompare(T, T);
@@ -72,6 +74,19 @@ public:
   // > key = "chave a procurar" 
   // ---------------------------------
   Node<T>* searchNodeByKey(T key);
+
+  // -----------{searchNodeByInterval}-----------
+  // > Método públic que pocura os nós que 
+  // > estão no intervalo entre keyMin 
+  // > e keyMax. Retorna os ponteiros em
+  // > um vector
+  // > 
+  // > !Utiliza função privada recursiva!
+  // >
+  // > keyMin = "chave mínima"
+  // > keyMax = "chave máxima" 
+  // --------------------------------------------
+  std::vector<Node<T>*> searchNodeByInterval(T keyMin, T keyMax);
 	
 private:
 
@@ -141,6 +156,18 @@ private:
   // > node = "raiz da árvore" 
   // -----------------------------
   void inorderPrint(Node<T>* node);
+
+  // -----------{searchinterval}-----------
+  // > Método privado recursivo que pocura 
+  // > os nós que estão no intervalo entre  
+  // > keyMin e keyMax. Retorna os pontei-
+  // > ros em um vector
+  // >
+  // > node   = "variável recursiva"
+  // > keyMin = "chave mínima"
+  // > keyMax = "chave máxima" 
+  // ---------------------------------------
+  // std::vector<Node<T>*> searchNodeByInterval(T* node, T keyMin, T keyMax);
 };
 
 #endif

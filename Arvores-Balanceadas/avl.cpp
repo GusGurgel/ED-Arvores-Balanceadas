@@ -64,6 +64,51 @@ Node<T>* avl_tree<T>::searchNodeByKey(T key){
 	return current;
 }
 
+template <typename T>
+std::vector<Node<T>*> avl_tree<T>::searchNodeByInterval(T keyMin, T keyMax){
+
+  std::vector<Node<T>*> ret;
+  std::stack<Node<T>*> st;
+
+  st.push(root);
+
+  if(keyMin > keyMax){
+    return ret; 
+  }
+
+  while(!st.empty()){
+    Node<T>* current = st.top();
+    st.pop();
+
+    if(current != nullptr){
+      //maior que o máximo (só pode estar na esquerda)
+      if(current->key > keyMax){
+        st.push(current->left);
+      //menor que o mínimo (só pode estar na direita)
+      }else if(current->key < keyMin){
+        st.push(current->right);
+      }else{
+        //exatamente igual ao máximo
+        if(current->key == keyMax){
+          ret.push_back(current);
+          st.push(current->left);
+        //exatamente igual ao mínimo
+        }else if(current->key == keyMin){
+          ret.push_back(current);
+          st.push(current->right);
+        //entre o mínimo e o máximo
+        }else{
+          ret.push_back(current);
+          st.push(current->right);
+          st.push(current->left);
+        }
+      }
+    }
+  }
+
+  return ret;
+}
+
 //----------------------------
 //   { Métodos Privados }
 //----------------------------
@@ -176,6 +221,31 @@ void avl_tree<T>::bshow(Node<T> *node, std::string heranca) const {
   if (node != nullptr && (node->left != nullptr || node->right != nullptr))
     bshow(node->left, heranca + "l");
 }
+
+// template <typename T>
+// std::vector<Node<T>*> avl_tree<T>::searchNodeByInterval(T* node, T keyMin, T keyMax){
+//   std::vector<Node<T>*> ret;
+
+//   //caso base
+//   if(node == nullptr){
+//     return ret;
+//   }
+
+//   if(node->key > max){
+//     return searchNodeByInterval(node->left, keyMin, keyMax);
+//   }else if(node->Key < min){
+//     return searchNodeByInterval(node->right, keyMin, keyMax)
+//   }else{
+//     if(node->key == max){
+//       for(Node<T>* nodeRef : searchNodeByInterval(node->left, keyMin, keyMax)){
+//         ret.push_back(nodeRef);
+//       }
+//       return ret;
+//     }else if(node->key == min){
+//       return searchNodeByInterval(node->right, keyMin, keyMax)
+//     }
+//   }
+// }
 
 // ----------------------------
 // Instanciação dos templates

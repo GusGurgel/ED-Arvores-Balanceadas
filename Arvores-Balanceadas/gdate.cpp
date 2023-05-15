@@ -55,6 +55,14 @@ int GDate::compareDate(const GDate& date1, const GDate& date2){
 	}
 }
 
+std::string GDate::toString(){
+	std::stringstream ss;
+
+	ss << *(this);
+
+	return ss.str();
+}
+
 //-----------------------------------
 //   { Overloading de Operadores }
 //-----------------------------------

@@ -20,6 +20,9 @@
 #include <iostream>//entrada e saida
 #include <vector>  //vetores
 #include <fstream> //leitura de arquivos
+
+
+#include <algorithm>//delete depois
 using namespace std;
 
 // ---------{readFromFile(string)}---------
@@ -30,32 +33,71 @@ using namespace std;
 vector<Person*>* readFromFile(string);
 
 int main(){
-	avl_tree<int> T;
 	string read;
-	int toFind = 0;
-	
-	for(int i = 0; i < 10; i++){
-		T.add(i);
+	avl_tree<GDate> T;
+	vector<Node<GDate>*> interval;
+	GDate min, max;
+
+	T.add(GDate("1/5/2023"));
+	T.add(GDate("2/5/2023"));
+	T.add(GDate("3/5/2023"));
+	T.add(GDate("4/5/2023"));
+	T.add(GDate("5/5/2023"));
+	T.add(GDate("6/5/2023"));
+	T.add(GDate("7/5/2023"));
+	T.add(GDate("8/5/2023"));
+	T.add(GDate("9/5/2023"));
+	T.add(GDate("10/5/2023"));
+
+	T.bshow();
+
+	try{
+		while(true){
+			vector<string> keys;
+			cout << "Digite a data mínima: ";	
+			cin >> read;
+			try{
+				min = GDate(read);
+			}catch(invalid_argument e){
+				cout << "Tipo da data inválida" << endl;
+				continue;
+			}
+			cout << "Digite a data máxima: ";
+			cin >> read;
+			try{
+				max = GDate(read);
+			}catch(invalid_argument e){
+				cout << "Tipo da data inválida" << endl;
+				continue;
+			}
+
+			interval = T.searchNodeByInterval(min, max);
+
+			for(Node<GDate>* ref : interval){
+				keys.push_back(ref->key.toString());
+			}
+
+			sort(keys.begin(), keys.end());
+
+			cout << "As chaves no intervalo são: ";
+
+			if(keys.empty()){
+				cout << "nenhuma";
+			}
+
+			for(string ref : keys){
+				cout << ref << " ";
+			}
+
+			cout << endl;
+		}
+	}catch(exception e){
+
 	}
-	
-	cout << boolalpha;
-	
+
 	T.bshow();
 	
-	while(true){
-		cout << "Digite um nó a ser porcurado -> ";
-		cin >> read;
-		
-		try{
-			toFind = stoi(read);
-			cout << "out -> ";
-			cout << (T.searchNodeByKey(toFind) != nullptr) << endl; 
-		}catch(exception e){
-			toFind = 0;
-			break;
-		}
-	}
-	
+
 	return 0;
 }
 

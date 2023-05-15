@@ -19,6 +19,7 @@
 #include <iostream> //operações de entrada e saida
 #include <regex>    //expressões regulares
 #include <stdexcept>//exceções
+#include <sstream>  //método toString
 
 using std::ostream;
 
@@ -68,7 +69,11 @@ public:
     // ---------------------------------
 	friend ostream &operator<<(ostream &, const GDate &);
 
-	
+	// --------{ toString() }----------
+	// > Retorna a data em string
+    // ---------------------------------
+	std::string toString();
+
 	// --------{ &operator<< }----------
 	// > Overload dos operadores de
 	// > comparação entre datas.
