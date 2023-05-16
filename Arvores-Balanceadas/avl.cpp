@@ -109,6 +109,40 @@ std::vector<Node<T>*> avl_tree<T>::searchNodeByInterval(T keyMin, T keyMax){
   return ret;
 }
 
+template <typename T>
+std::vector<Node<T>*> avl_tree<T>::searchNodeByPrefix(T prefix, bool (*isPrefix) (T, T)){
+  std::vector<Node<T>*> ret;
+  std::stack<Node<T>*> st;
+
+  st.push(root);
+
+  while(!st.empty()){
+    Node<T>* current = st.top();
+    st.pop();
+
+    if(current != nullptr){
+      //maior que o máximo (só pode estar na esquerda)
+      if(isPrefix(prefix, current->key)){
+        ret.push_back(current);
+        st.push(current->left);
+        st.push(current->right);
+      }else if(current->key > prefix){
+        if(isPrefix(prefix, current->key)){
+          ret.push_back(current);
+        }
+        st.push(current->left);
+      }else if(current->key < prefix){
+        if(isPrefix(prefix, current->key)){
+          ret.push_back(current);
+        }
+        st.push(current->right);
+      }
+    }
+  }
+
+  return ret;
+}
+
 //----------------------------
 //   { Métodos Privados }
 //----------------------------
@@ -221,31 +255,6 @@ void avl_tree<T>::bshow(Node<T> *node, std::string heranca) const {
   if (node != nullptr && (node->left != nullptr || node->right != nullptr))
     bshow(node->left, heranca + "l");
 }
-
-// template <typename T>
-// std::vector<Node<T>*> avl_tree<T>::searchNodeByInterval(T* node, T keyMin, T keyMax){
-//   std::vector<Node<T>*> ret;
-
-//   //caso base
-//   if(node == nullptr){
-//     return ret;
-//   }
-
-//   if(node->key > max){
-//     return searchNodeByInterval(node->left, keyMin, keyMax);
-//   }else if(node->Key < min){
-//     return searchNodeByInterval(node->right, keyMin, keyMax)
-//   }else{
-//     if(node->key == max){
-//       for(Node<T>* nodeRef : searchNodeByInterval(node->left, keyMin, keyMax)){
-//         ret.push_back(nodeRef);
-//       }
-//       return ret;
-//     }else if(node->key == min){
-//       return searchNodeByInterval(node->right, keyMin, keyMax)
-//     }
-//   }
-// }
 
 // ----------------------------
 // Instanciação dos templates

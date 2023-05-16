@@ -32,101 +32,85 @@ using namespace std;
 // ---------------------------------------
 vector<Person*>* readFromFile(string);
 
+bool isPrefix(string prefix, string str);
+
+void clear();
+
 int main(){
-	string read;
-	avl_tree<GDate> T;
-	vector<Node<GDate>*> interval;
-	GDate min, max;
+	avl_tree<string> T;
+	vector<Node<string>*> vet;
+	vector<string> keys;
 
-	T.add(GDate("1/5/2023"));
-	T.add(GDate("2/5/2023"));
-	T.add(GDate("3/5/2023"));
-	T.add(GDate("4/5/2023"));
-	T.add(GDate("5/5/2023"));
-	T.add(GDate("6/5/2023"));
-	T.add(GDate("7/5/2023"));
-	T.add(GDate("8/5/2023"));
-	T.add(GDate("9/5/2023"));
-	T.add(GDate("10/5/2023"));
+	ifstream in_stream; //Buffer de leitura
+	string str; //linha lida do arquivo
 
-	T.bshow();
+	in_stream.open("lero.txt");
 
-	try{
-		while(true){
-			vector<string> keys;
-			cout << "Digite a data mínima: ";	
-			cin >> read;
-			try{
-				min = GDate(read);
-			}catch(invalid_argument e){
-				cout << "Tipo da data inválida" << endl;
-				continue;
-			}
-			cout << "Digite a data máxima: ";
-			cin >> read;
-			try{
-				max = GDate(read);
-			}catch(invalid_argument e){
-				cout << "Tipo da data inválida" << endl;
-				continue;
-			}
+	//Adiciona todas as pessoas ao vetor
+	while(in_stream >> str){
+		T.add(getStringWithout(str, ",."));
+	}	
 
-			interval = T.searchNodeByInterval(min, max);
-
-			for(Node<GDate>* ref : interval){
-				keys.push_back(ref->key.toString());
-			}
-
-			sort(keys.begin(), keys.end());
-
-			cout << "As chaves no intervalo são: ";
-
-			if(keys.empty()){
-				cout << "nenhuma";
-			}
-
-			for(string ref : keys){
-				cout << ref << " ";
-			}
-
-			cout << endl;
-		}
-	}catch(exception e){
-
-	}
-
-	T.bshow();
 	
+
+	while(true){
+		vector<string> keys;
+		
+		clear();
+
+		makeLine(50);
+
+		T.bshow();
+		string prefix;
+		makeLine(50);
+		cout << endl << "Digite um prefixo a ser procurado: ";
+		cin >> prefix;	
+
+		vet = T.searchNodeByPrefix(prefix, isPrefix);
+
+		for(Node<string>* ref : vet){
+			keys.push_back(ref->key);
+		}
+
+		sort(keys.begin(), keys.end());
+
+		cout << "Os prefíxos encontrados foram: (";
+
+		for(string s : keys){
+			cout << "\"" << s << "\" ";
+		}
+
+		cout << ")" << endl;
+
+		cin >> prefix;
+
+		cout << endl;
+	}
 
 	return 0;
 }
 
+void clear(){
+	try{
+		system("clear");
+	}catch(exception e){
 
-//~ int main() {
-	//~ vector<Person*>* persons = nullptr;
-	//~ avl_tree<llint> TCPF;
-	//~ avl_tree<string> TNome;
-	//~ avl_tree<GDate>  TData;
+	}
+}
 
-	//~ persons = readFromFile("data(reduzida).csv");
+bool isPrefix(string prefix, string str){
+	if(prefix > str){
+		return false;
+	}
 
-	//~ for(const Person* p : *(persons)){
-		//~ TCPF.add(p->getNumNationalID());
-		//~ TNome.add(p->getGivenName());
-		//~ TData.add(p->getBirthDay());
-	//~ }
-	
-	//~ cout << "Ávore de CPFS: " << endl;
-	//~ TCPF.bshow();
-	//~ cout << "Ávore de Nomes: " << endl;
-	//~ TNome.bshow();
-	//~ cout << "Ávore de Datas: " << endl;
-	//~ TData.bshow();
+	for(int i = 0; i < prefix.size(); i++){
+		if(prefix[i] != str[i]){
+			return false;
+		}
+	}
 
-	//~ delete persons;
-	
-	//~ return 0;
-//~ }
+	return true;
+}
 
 vector<Person*>* readFromFile(string fileName){
 	vector<Person*>* ret = new vector<Person*>(); //vetor de retorno
@@ -140,7 +124,9 @@ vector<Person*>* readFromFile(string fileName){
 	//Adiciona todas as pessoas ao vetor
 	while(getline(in_stream, line)){
 		ret->push_back(new Person(line));
-	}	
+	}
+
+	in_stream.close();	
 
 	return ret;
 }
