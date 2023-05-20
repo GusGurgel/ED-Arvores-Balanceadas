@@ -33,8 +33,8 @@ template <typename T> avl_tree<T>::~avl_tree() {
 //   { Métodos Públicos }
 //----------------------------
 
-template <typename T> void avl_tree<T>::add(T key) { 
-  root = add(root, key); 
+template <typename T> void avl_tree<T>::add(T key, Person* per) { 
+  root = add(root, key, per); 
 }
 
 template <typename T> void avl_tree<T>::bshow() const { 
@@ -185,12 +185,12 @@ template <typename T> Node<T> *avl_tree<T>::leftRotation(Node<T> *p) {
   return u;
 }
 
-template <typename T> Node<T> *avl_tree<T>::add(Node<T> *p, T key) {
+template <typename T> Node<T> *avl_tree<T>::add(Node<T> *p, T key, Person* per) {
 	if (p == nullptr){
-		return new Node<T>(key);
+		return new Node<T>(key, per);
 	}
 	if (key == p->key){
-		p->addDupe(new Node<T>(key));
+		p->addDupe(new Node<T>(key, per));
 		return p;
 	}
 	if (key < p->key){

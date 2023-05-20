@@ -10,7 +10,7 @@ person.o: person.cpp person.h
 gdate.o: gdate.cpp gdate.h
 	g++ -c gdate.cpp
 
-avl.o: avl.cpp avl.h
+avl.o: avl.cpp avl.h node.h
 	g++ -c avl.cpp
 
 clean:

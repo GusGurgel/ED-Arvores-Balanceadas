@@ -5,7 +5,7 @@
 // AVL tree (Header file)
 //
 // Criação:     08 Mai 2023
-// Atualização: 08 Mai 2023
+// Atualização: 19 Mai 2023
 //
 // Criado Por:
 // Nome: Atílio Gomes Luiz
@@ -19,6 +19,7 @@
 #define _AVL_H_
 #include "node.h"
 #include "gdate.h"
+#include "person.h"
 #include <string> //palavras
 #include <vector> //retorna com múltiplos nós
 #include <stack>  //funções interativas
@@ -38,8 +39,9 @@ public:
   // > vado recursivo add.
   // >
   // > key = "chave a adicionar"
+  // > per = "pessoa ligada a chave"
   // -----------------------------------
-  void add(T key);
+  void add(T key, Person* per = nullptr);
   void bshow() const;
 
   // /---------{clear}-----------
@@ -85,6 +87,17 @@ public:
   // --------------------------------------------
   std::vector<Node<T>*> searchNodeByInterval(T keyMin, T keyMax);
 
+   // -----------{searchNodeByPrefix}-----------
+  // > Método públic que pocura os nós que estão 
+  // > que tem um prefíxo específico. Como essa
+  // > função não é possível implementar apenas
+  // > com os comparadores padrões. É necessário
+  // > passar uma função que compara dois valores
+  // > do tipo T e diz se eles são prefíxos.
+  // >
+  // > prefix = "prefíxo procurado"
+  // > keyMax = "função que diz se é prefíxo" 
+  // --------------------------------------------
   std::vector<Node<T>*> searchNodeByPrefix(T prefix, bool (*isPrefix) (T, T));
 	
 private:
@@ -122,10 +135,11 @@ private:
   // > e adiciona (de forma recursiva)
   // > na árvore.
   // >
-  // > p = "raiz da árvore"
+  // > p   = "raiz da árvore"
   // > key = "chave a adicionar"
+  // > per = "pessoa ligada a chave"
   // -----------------------------------
-  Node<T> *add(Node<T> *p, T key);
+  Node<T> *add(Node<T> *p, T key, Person* per = nullptr);
 
 
   // ---------{fixup_node}-----------
