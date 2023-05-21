@@ -16,6 +16,7 @@
 #include "avl.h"
 #include "gdate.h"
 #include "person.h"
+#include "gtable.h"
 
 #include <iostream>//entrada e saida
 #include <vector>  //vetores
@@ -37,28 +38,13 @@ bool isPrefix(string prefix, string str);
 void clear();
 
 int main(){
-	avl_tree<string> treeName;
-	vector<Person*>* persons;
+	GTable table(1);
 
-	persons = readFromFile("data(reduzida).csv");
+	table.addRow(vector<string> {"Nome","Idade"});
+	table.addRow(vector<string> {"Gustavo","19"});
+	table.addRow(vector<string> {"Pedro","20"});
 
-	for(Person* p : *(persons)){
-		treeName.add(p->getGivenName(), p);
-	}
-
-	cout << *(treeName.searchNodeByKey("Tiago")->toPerson) << endl;
-
-	for(Person* p : *(persons)){
-		delete p;
-	}
-
-	treeName.bshow();
-
-	persons->clear();
-
-	delete persons;
-
-	return 0;
+	table.show();
 }
 
 void clear(){

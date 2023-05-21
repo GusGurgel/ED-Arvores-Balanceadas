@@ -16,24 +16,35 @@ string toStringBrith(GDate date){
     return ss.str();
 }
 
-int main()
-{
-    vector<Person*>* person;
+// int main()
+// {
+//     vector<Person*>* person;
+//     GTable table(0);
+
+//     person = readFromFile("data(reduzida).csv");
+
+//     table.addRow(vector<string> {"CPF", "Primeiro Nome", "Segundo Nome", "Aniversário", "Cidade Natal"});
+
+//     for(Person* p : *(person)){
+//         table.addRow(vector<string> {p->getNationalID(), p->getGivenName(), p->getSurname(), toStringBrith(p->getBirthDay()), p->getCity()});
+//         // cout << *(p) << endl;
+//         delete p;
+//     }
+
+//     table.show();
+
+//     return 0;
+// }
+
+int main(){
     GTable table(1);
 
-    person = readFromFile("data(reduzida).csv");
-
-    table.addRow(vector<string> {"CPF", "Primeiro Nome", "Segundo Nome", "Aniversário", "Cidade Natal"});
-
-    for(Person* p : *(person)){
-        table.addRow(vector<string> {p->getNationalID(), p->getGivenName(), p->getSurname(), toStringBrith(p->getBirthDay()), p->getCity()});
-        // cout << *(p) << endl;
-        delete p;
-    }
+    table.addRow(vector<string> {"Nome","Sexo", " sdlkfjslkjdf"});
+    table.addRow(vector<string> {"Gustavo","Foda"});
+    table.addRow(vector<string> {"Mário","Gay"});
+    table.addRow(vector<string> {"Joabe (Cabeça)","Crente","sdlkfjsdl", "dskfsdlfjl"});
 
     table.show();
-
-    return 0;
 }
 
 // int main(){

@@ -24,9 +24,6 @@
 #include <vector> //retorna com múltiplos nós
 #include <stack>  //funções interativas
 
-// template <typename T>
-// int defaultCompare(T, T);
-
 template <typename T> 
 class avl_tree {
 public:

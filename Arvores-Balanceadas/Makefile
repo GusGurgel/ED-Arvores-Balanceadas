@@ -1,5 +1,5 @@
-out: main.o person.o gdate.o avl.o
-	g++ main.o person.o gdate.o avl.o -o out
+out: main.o person.o gdate.o avl.o gtable.o
+	g++ main.o person.o gdate.o avl.o gtable.o -o out
 
 main.o: main.cpp
 	g++ -c main.cpp
@@ -12,6 +12,9 @@ gdate.o: gdate.cpp gdate.h
 
 avl.o: avl.cpp avl.h node.h
 	g++ -c avl.cpp
+	
+gtable.o: gtable.cpp gtable.h
+	g++ -c gtable.cpp
 
 clean:
-	rm main.o person.o gdate.o avl.o
+	rm main.o person.o gdate.o avl.o gtable.o
