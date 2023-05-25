@@ -55,7 +55,7 @@ int GDate::compareDate(const GDate& date1, const GDate& date2){
 	}
 }
 
-std::string GDate::toString(){
+std::string GDate::toString() const{
 	std::stringstream ss;
 
 	ss << *(this);

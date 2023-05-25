@@ -33,7 +33,8 @@ template <typename T> avl_tree<T>::~avl_tree() {
 //   { Métodos Públicos }
 //----------------------------
 
-template <typename T> void avl_tree<T>::add(T key, Person* per) { 
+template <typename T> void avl_tree<T>::add(T key, Person* per) {
+  //std::cout << "Adicionando: " << key << " pessoa: " << (*per);
   root = add(root, key, per); 
 }
 
@@ -110,7 +111,7 @@ std::vector<Node<T>*> avl_tree<T>::searchNodeByInterval(T keyMin, T keyMax){
 }
 
 template <typename T>
-std::vector<Node<T>*> avl_tree<T>::searchNodeByPrefix(T prefix, bool (*isPrefix) (T, T)){
+std::vector<Node<T>*> avl_tree<T>::searchNodeByPrefix(T prefix, bool (*isPrefix) (const T&, const T&)){
   std::vector<Node<T>*> ret;
   std::stack<Node<T>*> st;
 
@@ -187,17 +188,19 @@ template <typename T> Node<T> *avl_tree<T>::leftRotation(Node<T> *p) {
 
 template <typename T> Node<T> *avl_tree<T>::add(Node<T> *p, T key, Person* per) {
 	if (p == nullptr){
+    std::cout << "nome: " << key << "pessoa: " << per << std::endl;
 		return new Node<T>(key, per);
 	}
 	if (key == p->key){
+    std::cout << "penis" << std::endl;
 		p->addDupe(new Node<T>(key, per));
 		return p;
 	}
 	if (key < p->key){
-		p->left = add(p->left, key);
+		p->left = add(p->left, key, per);
 	}
 	else{
-		p->right = add(p->right, key);
+		p->right = add(p->right, key, per);
 	}
 
 	p = fixup_node(p, key);

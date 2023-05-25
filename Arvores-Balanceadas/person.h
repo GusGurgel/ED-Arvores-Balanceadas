@@ -71,12 +71,14 @@ public:
 	friend ostream &operator<<(ostream &, const Person &);
 
     // -------{ Gets e Sets }-------
-    llint getNumNationalID() const;
     string getNationalID() const;
     string getGivenName() const;
     string getSurname() const;
-    GDate getBirthDay() const;
     string getCity() const;
+    string getFullName() const;
+    string getBirthDayString() const;
+    llint getNumNationalID() const;
+    GDate getBirthDay() const;
 
 private:
     // ---{ Atributos Privados }---

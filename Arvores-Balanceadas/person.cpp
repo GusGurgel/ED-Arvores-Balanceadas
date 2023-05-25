@@ -52,7 +52,7 @@ void Person::show() const{
 }
 
 ostream &operator<<(ostream &os, const Person &person) {
-	os << "NationalID: " << person.nationalID << "; Name: " << (person.givenName + " " + person.surname) << " ; Birthday: " << person.birthday << " ; City: " << person.city << ";";
+	os << "NationalID: " << person.getNationalID() << "; Name: " << person.getFullName() << " ; Birthday: " << person.getBirthDay() << " ; City: " << person.getCity() << ";";
 	return os;
 }
 
@@ -94,6 +94,13 @@ string Person::getCity() const{
     return this->city;
 }
 
+string Person::getFullName() const{
+    return (getGivenName() + getSurname());
+}
+
+string Person::getBirthDayString() const{
+    return birthday.toString();
+}
 //----------------------------
 //        { Funções }
 //----------------------------

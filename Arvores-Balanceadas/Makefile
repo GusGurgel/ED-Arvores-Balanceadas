@@ -16,5 +16,10 @@ avl.o: avl.cpp avl.h node.h
 gtable.o: gtable.cpp gtable.h
 	g++ -c gtable.cpp
 
+run:
+	@clear
+	@echo
+	@./out
+
 clean:
 	rm main.o person.o gdate.o avl.o gtable.o

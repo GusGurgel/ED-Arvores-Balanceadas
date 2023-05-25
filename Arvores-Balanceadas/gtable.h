@@ -1,13 +1,12 @@
 #ifndef _GTABLE_H_
 #define _GTABLE_H_
 
-#include <iostream>
-#include <vector>
-#include <iomanip>
-#include <cmath> //ceil e floor
-//acentuação
-#include <locale>
-#include <codecvt>
+#include <iostream> //entrada e saida
+#include <vector>   //vetores
+#include <iomanip>  //manipulação de string
+#include <cmath>    //ceil e floor
+#include <locale>   //acentuação
+#include <codecvt>  //acentuação
 
 #include "gdate.h" //typedef uint
 
@@ -56,17 +55,25 @@ string fillString(string str, int length);
 // > ver problemas de tamanho de strings
 // > com caracteres especiais e acentua-
 // > ção. Por exemplo, usando o método
-// > size da tipo string na string literal
+// > size do tipo string na string literal
 // > "Mário" o retono é igual a 6. Porque
 // > ele considera o caractere á como sendo
-// > dois. A função strLenght resolve isso,
-// > pois ela converte a string em uma
-// > wstring.
+// > dois caracteres separados. A função 
+// > strLenght resolve isso, retonando o
+// > valor esperado.
 // >
 // > str = "string para calcular tamanho"
 // --------------------------------------
 uint strLenght(string);
 
+// ------------{ tableStyle }------------
+// > Essa struct representa o estilo de
+// > uma tabela. Sua existência torna po-
+// > ssível alterações estetias na em como
+// > as tabelas são mostradas no terminal.
+// >
+// > str = "string para calcular tamanho"
+// ----------------------------------------
 struct tableStyle{
     string horizontalLine;
     string verticalLine;
@@ -88,21 +95,31 @@ struct tableStyle{
 
 class GTable {
 public:
-    GTable(uint padding);
+    GTable(uint padding);  //construtor padrão
 
-    addRow(vector<string>);
 
+    // ---------------{ addRow }---------------
+    // > Adiciona uma linha na tabela. Cada 
+    // > linha na tabela é representada por
+    // > um vetor de strings de tamanho varia-
+    // > do.
+    // ----------------------------------------
+    void addRow(vector<string>);// Adiciona uma linha na table 
+
+    // ---------{ show }--------
+    // > Mostra tabela na tela.
+    // -------------------------
     void show();
 private:
     tableStyle sty;               //Estilo de tabela
-    uint tableMaxLength;
-    int padding;
+    uint tableMaxLength;          //Tamanho do maior vector
+    int padding;                  //Espaçamento
     
     vector<vector<string>> table; //Tabela de strings
     vector<uint> lengths;         //Tabela de tamanhos horizontais 
 
     void showTopLine();            //Fazer linha de topo
-    void showConnectLine();         //Fazer linha do meio da tabela
+    void showConnectLine();        //Fazer linha de conexão
     void showMiddle();             //Fazer meio da tabela
     void showDownLine();           //Fazer linha de baixo
 };

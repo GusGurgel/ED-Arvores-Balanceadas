@@ -48,7 +48,7 @@ GTable::GTable(uint padding){
 }
 
 
-GTable::addRow(vector<string> row){
+void GTable::addRow(vector<string> row){
     if(row.size() > tableMaxLength){
         tableMaxLength = row.size();
     }

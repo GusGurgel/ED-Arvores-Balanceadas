@@ -75,5 +75,4 @@ struct Node {
 	  : key(key), toPerson(toPerson), height(height), left(left), right(right) {}
 };
 
-
 #endif

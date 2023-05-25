@@ -94,8 +94,8 @@ public:
   // >
   // > prefix = "prefíxo procurado"
   // > keyMax = "função que diz se é prefíxo" 
-  // --------------------------------------------
-  std::vector<Node<T>*> searchNodeByPrefix(T prefix, bool (*isPrefix) (T, T));
+  // -------------- ------------------------------
+  std::vector<Node<T>*> searchNodeByPrefix(T prefix, bool (*isPrefix) (const T&, const T&));
 	
 private:
 

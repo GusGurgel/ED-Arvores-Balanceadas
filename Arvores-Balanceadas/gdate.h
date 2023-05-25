@@ -72,7 +72,7 @@ public:
 	// --------{ toString() }----------
 	// > Retorna a data em string
     // ---------------------------------
-	std::string toString();
+	std::string toString() const;
 
 	// --------{ &operator<< }----------
 	// > Overload dos operadores de
