@@ -95,7 +95,7 @@ string Person::getCity() const{
 }
 
 string Person::getFullName() const{
-    return (getGivenName() + getSurname());
+    return (getGivenName() + " " + getSurname());
 }
 
 string Person::getBirthDayString() const{

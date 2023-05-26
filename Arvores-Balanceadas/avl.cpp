@@ -188,11 +188,9 @@ template <typename T> Node<T> *avl_tree<T>::leftRotation(Node<T> *p) {
 
 template <typename T> Node<T> *avl_tree<T>::add(Node<T> *p, T key, Person* per) {
 	if (p == nullptr){
-    std::cout << "nome: " << key << "pessoa: " << per << std::endl;
 		return new Node<T>(key, per);
 	}
 	if (key == p->key){
-    std::cout << "penis" << std::endl;
 		p->addDupe(new Node<T>(key, per));
 		return p;
 	}

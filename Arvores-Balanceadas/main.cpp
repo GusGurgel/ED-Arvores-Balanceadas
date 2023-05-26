@@ -50,14 +50,33 @@ void clear_terminal();
 vector<Person*>* readFromFile(string filePath);
 
 // ----------{isPrefix}----------
-// > Função que retorna true sé
-// > prefix é prefíxo da string
-// > str
+// > Função que retorna se uma
+// > string tem um certo prefíxo.
 // >
 // > prefix = "prefíxo"
 // > str    = "string verificada"
 // -------------------------------
 bool isPrefix(const string& prefix, const string& str);
+
+// -----------{addNodeOnTable}--------------
+// > Adiciona os dados de uma pessoa que
+// > estão dentro de um nó em uma tabela.
+// >
+// > node = "nó que vai ser adicionado"
+// > table = "referência a tabela"
+// -----------------------------------------
+template<typename T>
+void addNodeOnTable(Node<T>* node, GTable& table);
+
+// -----------{showNodeWhitTable}----------
+// > Mostra uma tabela com um nó genérico
+// > e seus valores duplicados caso exis-
+// > tir.
+// >
+// > vec = "ponteiro para o nó"
+// -----------------------------------------
+template<typename T>
+void showNodeWhitTable(Node<T>* node);
 
 // ---------{showVecNodeWhitTable}---------
 // > mostra um vetor de nós genéricos no 
@@ -68,37 +87,56 @@ bool isPrefix(const string& prefix, const string& str);
 template<typename T>
 void showVecNodeWhitTable(vector<Node<T>*>* vec);
 
+// ---------{showVecNodeWhitTable}---------
+// > menssagem padrão para nós vazios
+// ----------------------------------------
+void showNullNode();
+
 int main()
 {
-    vector<Person*>* persons = readFromFile("data(reduzida).csv");
-	avl_tree<string> T;
-	char resp;
-	string prefix;
-	vector<Node<string>*> res;
+    //Vetor com todas as pessoas
+	vector<Person*>* persons = readFromFile("data(reduzida).csv");
 
-	for(Person* p : (*persons)){
-		string name = p->getGivenName()+" "+p->getSurname();
-		T.add(name, p);
-	}
+	//Árvore de CPFs
+	avl_tree<llint> cpfTree;
+	//Árvore de nomes
+	avl_tree<string> nameTree;
+	//Ávores de datas
+	avl_tree<GDate> dateTree;
 	
-	do{
-		clear_terminal();
-		cout << "Digite um prefixo para procurar: ";
-		cin >> prefix;
+	//Adicionando as informações das
+	//pessoas na árvore
+	for(Person* p : (*persons)){
+		cpfTree.add(p->getNumNationalID(), p);
+		nameTree.add(p->getFullName(), p);
+		dateTree.add(p->getBirthDay(), p);
 
-		res = T.searchNodeByPrefix(prefix, isPrefix);
-		showVecNodeWhitTable(&res);
+		cout << (*p) << endl;
+	}
+
+	makeLine(80);
+
+	cpfTree.bshow();
+	
+	for(int i = 0; i < 5; i++){
 		cout << endl;
-		cout << "Continuar(S/N)?: ";
-		cin >> resp;
+	}
 
-	}while(resp == 'S' | resp == 's');
+	nameTree.bshow();
 
+	for(int i = 0; i < 5; i++){
+		cout << endl;
+	}
+
+	dateTree.bshow();
+
+	//--Limpando vetor de Pessoas--
 	for(Person* p : (*persons)){
 		delete p;
 	}
 	persons->clear();
 	delete persons;
+	//-----------------------------
 
     return 0;
 }
@@ -122,7 +160,8 @@ bool isPrefix(const string& prefix, const string& str){
 }
 
 vector<Person*>* readFromFile(string fileName){
-	vector<Person*>* ret = new vector<Person*>(); //vetor de retorno
+	//vetor de retorno
+	vector<Person*>* ret = new vector<Person*>(); 
 	ifstream in_stream; //Buffer de leitura
 	string line; //linha lida do arquivo
 
@@ -135,32 +174,76 @@ vector<Person*>* readFromFile(string fileName){
 		ret->push_back(new Person(line));
 	}
 
+	//Fechando o arquivo
 	in_stream.close();	
 
 	return ret;
 }
 
 template<typename T>
-void showVecNodeWhitTable(vector<Node<T>*>* vec){
-	GTable table(1);
+void addNodeOnTable(Node<T>* node, GTable& table){
+	Person* p = node->toPerson;
+	
+	//Adicionando pessoa do nó na tabela
+	table.addRow(vector<string> {p->getNationalID(), p->getGivenName(), p->getSurname(), p->getCity(), p->getBirthDayString()});
+
+	//Adicionando valores duplicados
+	if(node->dupes != nullptr){
+		for(Node<T>* dupe : (*node->dupes)){
+			Person* pd = dupe->toPerson;
+			table.addRow(vector<string> {pd->getNationalID(), pd->getGivenName(), pd->getSurname(), pd->getCity(), pd->getBirthDayString()});
+		}
+	}
+}
+
+template<typename T>
+void showNodeWhitTable(Node<T>* node){
 	//Caso vetor null ou vazio
-	if(vec == nullptr || vec->size() == 0){
-		string text = "nenhum valor encontrado";
-		table.addRow(vector<string> {text});
-		table.show();
+	if(node == nullptr){
+		showNullNode();
 		return;
 	}
 
+	//Cria uma tabela
+	GTable table(1);
+
 	//Cabeçalho
-	table.addRow(vector<string> {"CPF", "Nome", "Sobrenome", "Aniversário", "Cidade Natal"});
+	table.addRow(vector<string> {"CPF", "Primeiro Nome", "Sobrenome", "Aniversário", "Cidade Natal"});
 
+	//Adiciona nó na tabela
+	addNodeOnTable(node, table);
 
-	//Gustavo, faça a função adicionar os dupes
+	table.show();
+}
+
+template<typename T>
+void showVecNodeWhitTable(vector<Node<T>*>* vec){
+	//Caso vetor null ou vazio
+	if(vec == nullptr || vec->size() == 0){
+		showNullNode();
+		return;
+	}
+
+	//Cria um tabela
+	GTable table(1);
+
+	//Cabeçalho
+	table.addRow(vector<string> {"CPF", "Primeiro Nome", "Sobrenome", "Aniversário", "Cidade Natal"});
+
+	int test = 0;
+
+	//Adiciona todos os nós
 	for(Node<T>* node : (*vec)){
-		Person* p = node->toPerson;
-		table.addRow(vector<string> {p->getNationalID(), p->getGivenName(), p->getSurname(), p->getCity(), p->getBirthDayString()});
+		addNodeOnTable(node, table);
 	}
 
 	table.show();
 }
 
+void showNullNode(){
+	GTable table(1);
+	const string text = "nenhum valor encontrado";
+
+	table.addRow(vector<string> {text});
+	table.show();
+}
