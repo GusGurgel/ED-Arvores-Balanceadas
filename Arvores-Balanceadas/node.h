@@ -27,13 +27,13 @@ template <typename T>
 struct Node {
 	// Atributos
 	T key;
-	int height;
+	int height{0};
 	//Filhos direitos e esquerdo
-	Node<T> *left;
-	Node<T> *right;
+	Node<T> *left{nullptr};
+	Node<T> *right{nullptr};
 
 	//Nó para pessoa
-	Person* toPerson;
+	Person* toPerson{nullptr};
 
 	//Vetor que armazena versões duplicadas
 	//deste nó
