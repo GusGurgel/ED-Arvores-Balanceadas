@@ -122,7 +122,7 @@ int main()
 	const string terminalDiv = ">>> ";
 
 	//Lé arquivos de menu
-	const string mainMenuPath = "menu-files\\main-menu.txt";
+	const string mainMenuPath = "menu-files/main-menu.txt";
 	const string mainMenuText = readTextFile(mainMenuPath);
 
 	//Lé pessoas do arquivo csv
