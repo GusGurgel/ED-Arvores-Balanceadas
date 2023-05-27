@@ -2,10 +2,10 @@
 //
 // Projeto 1 - Estrutura de Dados Avançada UFC
 //
-// AVL tree (Header file)
+// Node (Header/Implementation file)
 //
-// Criação:     08 Mai 2023
-// Atualização: 08 Mai 2023
+// Criação:     10 Mai 2023
+// Atualização: 26 Mai 2023
 //
 // Criado Por:
 // Nome: Atílio Gomes Luiz

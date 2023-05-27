@@ -1,3 +1,17 @@
+/**************************************************
+//
+// Projeto 1 - Estrutura de Dados Avançada UFC
+//
+// GTable (Implementation file)
+//
+// Criação:     21 Mai 2023
+// Atualização: 26 Mai 2023
+//
+// Criado Por:
+// Gustavo Gurgel Medeiros
+// Número de Matrícula [UFC]: 539226
+************************************************/
+
 #include "gtable.h"
 
 void showRepeat(string str, int times){

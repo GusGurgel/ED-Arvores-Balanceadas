@@ -5,7 +5,7 @@
 // AVL tree (Header file)
 //
 // Criação:     08 Mai 2023
-// Atualização: 19 Mai 2023
+// Atualização: 26 Mai 2023
 //
 // Criado Por:
 // Nome: Atílio Gomes Luiz

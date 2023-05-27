@@ -5,7 +5,7 @@
 // AVL tree (Implementation file)
 //
 // Criação:     08 Mai 2023
-// Atualização: 08 Mai 2023
+// Atualização: 26 Mai 2023
 //
 // Criado Por:
 // Nome: Atílio Gomes Luiz

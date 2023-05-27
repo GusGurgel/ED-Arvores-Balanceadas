@@ -5,7 +5,7 @@
 // Person Class (Implementation file)
 //
 // Criação:     11 Mai 2023
-// Atualização: 11 Mai 2023
+// Atualização: 26 Mai 2023
 //
 // Criado Por:
 // Nome: Gustavo Gurgel Medeiros

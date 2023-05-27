@@ -5,7 +5,7 @@
 // Árvores Balanceadas (main file)
 //
 // Criação:     08 Mai 2023
-// Atualização: 08 Mai 2023
+// Atualização: 26 Mai 2023
 //
 // Criado Por:
 // Nome: Gustavo Gurgel Medeiros
@@ -33,9 +33,10 @@ using namespace std;
 // -----------------------------
 void clear_terminal();
 
-// -----------------{readFromFile}---------------
-// > Pega todas a pessoas definidas em um arquivo 
-// > de texto e retorna em formato de um vector. 
+// -----------------{readCSVFile}---------------
+// > Pega todas a pessoas definidas em um arquivo
+// > .csv e adiciona por referência em um vector.
+// > 
 // > No arquivo de texto cada pessoa é representada 
 // > por uma linha que segue o seguinte modelo:
 // > 
@@ -44,10 +45,20 @@ void clear_terminal();
 // > Importate: Essa função considera a primeira
 // > linha como uma cabeçalho. Portanto essa li-
 // > nha é sempre desconsiderada.
-// >
-// > filePath = "endereço do arquivo"
+// > 
+// > filePath = "path do arquivo"
+// > ref      = "referência para vetor de pessoas"
 // -----------------------------------------------
-vector<Person*>* readFromFile(string filePath);
+void readCSVFile(const string& filePath, vector<Person>& ref);
+
+// -----------------{readTextFile}---------------
+// > Lé um arquivo de texto e coloca tudo em uma
+// > string.
+// >
+// > path = "caminho do arquivo"
+// > str  = "string de saida"
+// -----------------------------------------------
+string readTextFile(const string& path);
 
 // ----------{isPrefix}----------
 // > Função que retorna se uma
@@ -69,9 +80,8 @@ template<typename T>
 void addNodeOnTable(Node<T>* node, GTable& table);
 
 // -----------{showNodeWhitTable}----------
-// > Mostra uma tabela com um nó genérico
-// > e seus valores duplicados caso exis-
-// > tir.
+// > Mostra um nó genêrico em uma tabela
+// > e seus valores duplicados caso existir.
 // >
 // > vec = "ponteiro para o nó"
 // -----------------------------------------
@@ -87,56 +97,84 @@ void showNodeWhitTable(Node<T>* node);
 template<typename T>
 void showVecNodeWhitTable(vector<Node<T>*>* vec);
 
-// ---------{showVecNodeWhitTable}---------
+// -----------{showNullNode}-----------
 // > menssagem padrão para nós vazios
-// ----------------------------------------
+// ------------------------------------
 void showNullNode();
+
 
 int main()
 {
-    //Vetor com todas as pessoas
-	vector<Person*>* persons = readFromFile("data(reduzida).csv");
-
-	//Árvore de CPFs
-	avl_tree<llint> cpfTree;
-	//Árvore de nomes
-	avl_tree<string> nameTree;
-	//Ávores de datas
-	avl_tree<GDate> dateTree;
+	int command_idx; 		     //Índice de comando
+	uint mainMenuOpcCount = 5;   //Número de opções do menu principal
 	
-	//Adicionando as informações das
-	//pessoas na árvore
-	for(Person* p : (*persons)){
-		cpfTree.add(p->getNumNationalID(), p);
-		nameTree.add(p->getFullName(), p);
-		dateTree.add(p->getBirthDay(), p);
-
-		cout << (*p) << endl;
-	}
-
-	makeLine(80);
-
-	cpfTree.bshow();
+	vector<Person> persons;      //Vetor com todas as pessoas
 	
-	for(int i = 0; i < 5; i++){
-		cout << endl;
+	avl_tree<llint> cpfTree;     //Árvore de CPFs
+	avl_tree<string> nameTree;   //Árvore de nomes
+	avl_tree<GDate> dateTree;    //Ávores de datas
+	
+	//Diz se a última leitura do termianl teve sucesso
+	bool lastReadSucess = true;  
+
+	//Esse divisor aparece no começo do terminal
+	//para simbolizar a espera de uma entrada
+	const string terminalDiv = ">>> ";
+
+	//Lé arquivos de menu
+	const string mainMenuPath = "menu-files\\main-menu.txt";
+	const string mainMenuText = readTextFile(mainMenuPath);
+
+	//Lé pessoas do arquivo csv
+	readCSVFile("data(reduzida).csv", persons);
+
+	//Construindo as árvores
+	for(Person& p : persons){
+		cpfTree.add(p.getNumNationalID(), &p);
+		nameTree.add(p.getFullName(), &p);
+		dateTree.add(p.getBirthDay(), &p);
+
+		cout << p << endl;
 	}
 
-	nameTree.bshow();
+	//----- { Main interativa } -----
 
-	for(int i = 0; i < 5; i++){
-		cout << endl;
+	while(true){
+		string line;	             //Linha lida do console	
+		string command;				 //Commando passado para main
+	    stringstream command_stream; //Stream de comandos
+
+		//Mostra menu
+		clear_terminal();
+		cout << mainMenuText;
+
+		if(!lastReadSucess){
+			cout << "[digite um valor válido]" << endl;
+		}
+
+		cout << terminalDiv;
+
+		//Lé commando passado pelo usuário
+		getline(cin, line);
+		command_stream << line;
+		command_stream >> command;
+
+		//Tenta conversão com stoi e faz tratamento de exceção
+		try{
+			command_idx = stoi(command);
+			if(command_idx <= 0 || command_idx > mainMenuOpcCount){
+				throw invalid_argument("Opção fora de alcance");
+			}
+			lastReadSucess = true;
+		}catch(invalid_argument excp){
+			lastReadSucess = false;
+			continue;
+		}
+		
+		cout << command_idx << endl;
+
+		break;
 	}
-
-	dateTree.bshow();
-
-	//--Limpando vetor de Pessoas--
-	for(Person* p : (*persons)){
-		delete p;
-	}
-	persons->clear();
-	delete persons;
-	//-----------------------------
 
     return 0;
 }
@@ -159,23 +197,53 @@ bool isPrefix(const string& prefix, const string& str){
 	return true;
 }
 
-vector<Person*>* readFromFile(string fileName){
-	//vetor de retorno
-	vector<Person*>* ret = new vector<Person*>(); 
+void readCSVFile(const string& path, vector<Person>& vet){
 	ifstream in_stream; //Buffer de leitura
-	string line; //linha lida do arquivo
+	string line;        //linha lida do arquivo
 
-	in_stream.open(fileName);
+	//Limpa string
+	line = "";
+
+	in_stream.open(path);
 
 	getline(in_stream, line); //linha de cabeçalho
 
-	//Adiciona todas as pessoas ao vetor
-	while(getline(in_stream, line)){
-		ret->push_back(new Person(line));
+	//Cheka se o arquivo abriu
+	if(in_stream){
+		//Adiciona todas as pessoas ao vetor
+		while(getline(in_stream, line)){
+			vet.push_back(Person(line));
+		}
+	}else{
+		//Exceção ao tentar abrir o arquivo
+		throw invalid_argument("Problem trying to reda file or " + path + " not exists");
 	}
+	
 
 	//Fechando o arquivo
-	in_stream.close();	
+	in_stream.close();
+}
+
+string readTextFile(const string& path){
+	ifstream in_stream; //Buffer de leitura
+	string line;        //Linha lida do buffer
+	string ret; 		//string de retorno
+
+	//Limpa strings
+	line = ret = "";
+
+	in_stream.open(path);
+
+	if(in_stream){
+		//Adiciona todas as linhas na string
+		while(getline(in_stream, line)){
+			//Adiciona linha e pulo de linha
+			ret += (line + "\n");
+		}
+	}else{
+		//Exceção ao tentar abrir o arquivo
+		throw invalid_argument("Problem trying to reda file or " + path + " not exists");
+	}
 
 	return ret;
 }
@@ -242,8 +310,9 @@ void showVecNodeWhitTable(vector<Node<T>*>* vec){
 
 void showNullNode(){
 	GTable table(1);
-	const string text = "nenhum valor encontrado";
 
+	const string text = "nenhum valor encontrado";
 	table.addRow(vector<string> {text});
+
 	table.show();
 }

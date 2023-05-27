@@ -5,7 +5,7 @@
 // GDate (Header file)
 //
 // Criação:     09 Mai 2023
-// Atualização: 09 Mai 2023
+// Atualização: 26 Mai 2023
 //
 // Criado Por:
 // Gustavo Gurgel Medeiros
