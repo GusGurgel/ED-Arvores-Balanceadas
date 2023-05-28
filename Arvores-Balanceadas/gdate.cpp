@@ -103,4 +103,5 @@ bool GDate::operator>=(const GDate& dateCopared) const{
 //----------------------------
 //   { Métodos Privados }
 //----------------------------
-const std::regex GDate::regexDate ("(\\d{1,2})\\/(\\d{1,2})\\/(\\d{4})");
+// const std::regex GDate::regexDate ("(\\d{1,2})\\/(\\d{1,2})\\/(\\d{4})");
+const std::regex GDate::regexDate ("([0][1-9]|[1][0-2]|[1-9])\\/([3][0-1]|[0-2]\\d|\\d)\\/(\\d{4})");

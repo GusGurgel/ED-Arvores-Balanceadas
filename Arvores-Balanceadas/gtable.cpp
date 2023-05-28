@@ -151,6 +151,10 @@ void GTable::showMiddle(){
     }
 }
 
+uint GTable::getRowSize(){
+    return table.size();
+}
+
 void GTable::showConnectLine(){
     cout << sty.rightUpDownEdge;
     for(uint i = 0; i < lengths.size(); i++){

@@ -82,20 +82,23 @@ void addNodeOnTable(Node<T>* node, GTable& table);
 // -----------{showNodeWhitTable}----------
 // > Mostra um nó genêrico em uma tabela
 // > e seus valores duplicados caso existir.
+// > retona a quantidade de linhas da tabe-
+// > la.
 // >
 // > vec = "ponteiro para o nó"
 // -----------------------------------------
 template<typename T>
-void showNodeWhitTable(Node<T>* node);
+uint showNodeWhitTable(Node<T>* node);
 
 // ---------{showVecNodeWhitTable}---------
 // > mostra um vetor de nós genéricos no 
-// > formato de uma tabela.
+// > formato de uma tabela. Retorna quanti-
+// > dade de linhas da tabela.
 // >
 // > vec = "ponteiro para o vetor de nós"
 // -----------------------------------------
 template<typename T>
-void showVecNodeWhitTable(vector<Node<T>*>* vec);
+uint showVecNodeWhitTable(vector<Node<T>*>* vec);
 
 // -----------{showNullNode}-----------
 // > menssagem padrão para nós vazios
@@ -125,8 +128,17 @@ bool stringToIntMax(string str, uint& ref, const uint max);
 // ---------------{idStringToLLINT}---------------
 // > Converte uma string em formata de cpf em
 // > um long long int
-// ----------------------------------------------
+// -----------------------------------------------
 llint idStringToLLINT(string str);
+
+// ---------------{showSearchInfo}---------------
+// > Mostra as informações de busca em uma cé-
+// > lula de tabela.
+// >
+// > info = "String com informção de pesquisa"
+// > cont = "Quantidades de encontros da pesquisa"
+// ----------------------------------------------
+void showSearchInfo(const string& info, uint cont);
 
 // ---------------{idStringToLLINT}---------------
 // > De uma efetua uma pausa, esperando que uma
@@ -146,6 +158,9 @@ int main()
 	regex idRegex ("\\d{3}.\\d{3}.\\d{3}-\\d{2}");
 
 	//------ {Definição de Variáveis de Menu} -------
+
+	//Informações de busca
+	string serachInfo;
 
 	//Número de opções do menu principal
 	const uint mainMenuLen = 5;  
@@ -260,8 +275,16 @@ int main()
 				clear_terminal();
 
 				//Mostra a tabela
-				showNodeWhitTable(cpfTree.searchNodeByKey(idNumToFind));
+				Node<llint>* res = cpfTree.searchNodeByKey(idNumToFind);
+
+				//Mostra tabela e pega quantidade de
+				//elementos
+				uint cont = showNodeWhitTable(res);
 				cout << endl;
+
+				//Mostra informações de busca
+				serachInfo = "ID searched: " + idToFind;
+				showSearchInfo(serachInfo, cont);
 
 				menuPause();
 			}
@@ -331,8 +354,12 @@ int main()
 				vector<Node<GDate>*> res = dateTree.searchNodeByInterval(date1, date2);
 
 				//Mostra em formato de tabela
-				showVecNodeWhitTable(&res);
+				uint cont = showVecNodeWhitTable(&res);
 				cout << endl;
+
+				//Mostra informações de busca
+				serachInfo = "Date interval: [" + dateStr1 + "] - [" + dateStr2 + "]"; 
+				showSearchInfo(serachInfo, cont);
 
 				//Pausa menu
 				menuPause();
@@ -366,8 +393,12 @@ int main()
 				//limpa terminal
 				clear_terminal();
 
-				showVecNodeWhitTable(&res);
+				uint cont = showVecNodeWhitTable(&res);
 				cout << endl;
+
+				//Mostra informações de busca
+				serachInfo = "Prefix: \"" + prefix + "\""; 
+				showSearchInfo(serachInfo, cont);
 
 				menuPause();
 			}
@@ -382,9 +413,13 @@ int main()
 			reverse(all.begin(), all.end());
 
 			//Mostra a tabel
-			showVecNodeWhitTable(&all);
+			uint cont = showVecNodeWhitTable(&all);
 			cout << endl;
 			
+			serachInfo = "All persons registered";
+			
+			showSearchInfo(serachInfo, cont);
+
 			menuPause();
 		}else if(command_idx == 5 /*exit*/){
 			cout << "Exiting..." << endl;
@@ -481,11 +516,11 @@ void addNodeOnTable(Node<T>* node, GTable& table){
 }
 
 template<typename T>
-void showNodeWhitTable(Node<T>* node){
+uint showNodeWhitTable(Node<T>* node){
 	//Caso vetor null ou vazio
 	if(node == nullptr){
 		showNullNode();
-		return;
+		return 0;
 	}
 
 	//Cria uma tabela
@@ -497,14 +532,17 @@ void showNodeWhitTable(Node<T>* node){
 	addNodeOnTable(node, table);
 
 	table.show();
+
+	//-1 pois desconsidera o cabeçalho
+	return table.getRowSize()-1;
 }
 
 template<typename T>
-void showVecNodeWhitTable(vector<Node<T>*>* vec){
+uint showVecNodeWhitTable(vector<Node<T>*>* vec){
 	//Caso vetor null ou vazio
 	if(vec == nullptr || vec->size() == 0){
 		showNullNode();
-		return;
+		return 0;
 	}
 
 	//Cria um tabela
@@ -519,6 +557,9 @@ void showVecNodeWhitTable(vector<Node<T>*>* vec){
 	}
 
 	table.show();
+
+	//-1 pois desconsidera o cabeçalho
+	return table.getRowSize()-1;
 }
 
 void showNullNode(){
@@ -570,4 +611,12 @@ llint idStringToLLINT(string str){
 void menuPause(){
 	cout << " (Press ENTER) >>> ";
 	cin.get();
+}
+
+void showSearchInfo(const string& str, uint cont){
+	GTable table(1);
+	string matchesInfo = "Number of Matches: " + to_string(cont);
+	table.addRow(vector<string>{str, matchesInfo});
+	table.show();
+	cout << endl;
 }

@@ -124,6 +124,13 @@ public:
     // > Mostra tabela na tela.
     // -------------------------
     void show();
+
+    // ---------{ getTableRowSize }--------
+    // > Retorna a quantidade de linhas
+    // > da tabela.
+    // ------------------------------------
+    uint getRowSize();
+    
 private:
     tableStyle sty;               //Estilo de tabela
     uint tableMaxLength;          //Tamanho do maior vector
