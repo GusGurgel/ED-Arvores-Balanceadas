@@ -155,7 +155,7 @@ int main()
 	avl_tree<GDate> dateTree;    //Ávores de datas
 
 	//Expreção regular de cpf
-	regex idRegex ("\\d{3}.\\d{3}.\\d{3}-\\d{2}");
+	regex idRegex ("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}");
 
 	//------ {Definição de Variáveis de Menu} -------
 
