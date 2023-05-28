@@ -62,7 +62,7 @@ string strRepeat(string, int);
 // > str = "string que vai ser preenchida"
 // > length = "tamanho esperado"
 // --------------------------------------
-string fillString(string str, int length);
+string fillString(string str, uint length);
 
 // ------------{ strLenght }------------
 // > Essa função vem para tentar resol-

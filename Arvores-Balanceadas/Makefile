@@ -1,4 +1,4 @@
-CFLAGS = -Wall
+CFLAGS = -Wall -Wextra -pedantic-errors
 
 out: main.o person.o gdate.o avl.o gtable.o
 	g++ $(CFLAGS) main.o person.o gdate.o avl.o gtable.o -o out
@@ -23,5 +23,5 @@ run:
 	@echo
 	@./out
 
-clean:
+clear:
 	rm main.o person.o gdate.o avl.o gtable.o

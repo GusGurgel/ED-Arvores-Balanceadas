@@ -74,7 +74,7 @@ void GTable::addRow(vector<string> row){
         }   
     }
 
-    for(int i = 0; i < row.size(); i++){
+    for(uint i = 0; i < row.size(); i++){
         if(row[i].size() > lengths[i]){
             lengths[i] = row[i].size();
         }
@@ -127,13 +127,12 @@ void GTable::showDownLine(){
 }
 
 void GTable::showMiddle(){
-    uint rowLen = table.size();
     uint cont = 0;
 
     cout << std::setfill(' ');
 
     for(vector<string>& curRow : table){
-        for(int j = 0; j < tableMaxLength; j++){
+        for(uint j = 0; j < tableMaxLength; j++){
             cout << sty.verticalLine;
             if(j < curRow.size()){
                 // cout << std::setw(lengths[j]+padding);
@@ -154,7 +153,7 @@ void GTable::showMiddle(){
 
 void GTable::showConnectLine(){
     cout << sty.rightUpDownEdge;
-    for(int i = 0; i < lengths.size(); i++){
+    for(uint i = 0; i < lengths.size(); i++){
         showRepeat(sty.horizontalLine, lengths[i]+padding);
         if(i < lengths.size()-1){
             cout << sty.fullEdge;
@@ -169,7 +168,7 @@ void GTable::show(){
     showDownLine();
 }
 
-string fillString(string str, int len){
+string fillString(string str, uint len){
     string ret = "";
     uint sizeString = strLenght(str);
 

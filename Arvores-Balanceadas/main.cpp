@@ -120,7 +120,7 @@ string getLineFtsString();
 // > ref = "referência para receber conversão"
 // > max = "Valor máximo de conversão"
 // ----------------------------------------------
-bool stringToIntMax(string str, int& ref, const uint max);
+bool stringToIntMax(string str, uint& ref, const uint max);
 
 // ---------------{idStringToLLINT}---------------
 // > Converte uma string em formata de cpf em
@@ -178,7 +178,7 @@ int main()
 	//------ {Construção da Árvore de Pessoas} -------
 
 	//Lé pessoas do arquivo csv
-	readCSVFile("data(reduzida).csv", persons);
+	readCSVFile("data.csv", persons);
 
 	//Construindo as árvores
 	for(Person& p : persons){
@@ -190,7 +190,7 @@ int main()
 	//----- { Main interativa } -----
 
 	while(true){
-		int command_idx;  //Índice de comando
+		uint command_idx;  //Índice de comando
 		string command;	  //Commando			
 
 		//Mostra menu
@@ -303,7 +303,11 @@ int main()
 
 				//Ver se opção de sair foi selecionada
 				try{
-					if(stoi(dateStr1) == 1){
+					//O tamanho tem que ser igual a 
+					//1 para não entrar em conflito
+					//com datas do mês de janeiro
+					//tipo 1/1/2023
+					if(dateStr1.size() == 1 && stoi(dateStr1) == 1){
 						break;
 					}
 				}catch(exception e){}
@@ -320,6 +324,9 @@ int main()
 					continue;
 				}
 				
+				//Limpa o terminal
+				clear_terminal();
+
 				//Pega vetor com as datas no intervalo
 				vector<Node<GDate>*> res = dateTree.searchNodeByInterval(date1, date2);
 
@@ -364,8 +371,21 @@ int main()
 
 				menuPause();
 			}
+		/*Mostrar todas as pessoas*/
 		}else if(command_idx == 4){
-			continue;
+			//limpa o terminal
+			clear_terminal();
+
+			//Todo nome tem vazio como prefíxo
+			vector<Node<string>*> all = nameTree.searchNodeByPrefix("", isPrefix);
+
+			reverse(all.begin(), all.end());
+
+			//Mostra a tabel
+			showVecNodeWhitTable(&all);
+			cout << endl;
+			
+			menuPause();
 		}else if(command_idx == 5 /*exit*/){
 			cout << "Exiting..." << endl;
 			break;
@@ -525,7 +545,7 @@ string getLineFtsString(){
 	return ret;
 }
 
-bool stringToIntMax(string str, int& ref, const uint max){	
+bool stringToIntMax(string str, uint& ref, const uint max){	
 	try{
 		//tentar converter
 		ref = stoi(str);
@@ -548,6 +568,6 @@ llint idStringToLLINT(string str){
 }
 
 void menuPause(){
-	cout << " >>> (Press ENTER)";
+	cout << " (Press ENTER) >>> ";
 	cin.get();
 }

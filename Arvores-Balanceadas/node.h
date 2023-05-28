@@ -72,7 +72,7 @@ struct Node {
 	
 	// Construtor
 	Node(T key, Person* toPerson = nullptr, Node *left = nullptr, Node *right = nullptr, int height = 1)
-	  : key(key), toPerson(toPerson), height(height), left(left), right(right) {}
+	  : key(key), height(height) , left(left), right(right), toPerson(toPerson) {}
 };
 
 #endif
