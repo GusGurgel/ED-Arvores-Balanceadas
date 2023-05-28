@@ -221,6 +221,7 @@ int main()
 
 		//Lé commando passado pelo usuário
 		command = getLineFtsString();
+		
 
 		//Tenta conversão com stoi e faz tratamento de exceção
 		readResult = stringToIntMax(command, command_idx, mainMenuLen);
@@ -258,7 +259,7 @@ int main()
 					if(stoi(idToFind) == 1){
 						break;
 					}
-				}catch(exception e){}
+				}catch(exception const&e){}
 
 				//Procura pelo ID
 				regex_search(idToFind, regexMatch, idRegex);
@@ -333,7 +334,7 @@ int main()
 					if(dateStr1.size() == 1 && stoi(dateStr1) == 1){
 						break;
 					}
-				}catch(exception e){}
+				}catch(exception const &e){}
 
 				try{
 					date1 = GDate(dateStr1);
@@ -342,7 +343,7 @@ int main()
 					if(date1 > date2){
 						throw invalid_argument("Min date > Max date");
 					}
-				}catch(exception e){
+				}catch(exception const& e){
 					birthReadSucess = false;
 					continue;
 				}
@@ -386,7 +387,7 @@ int main()
 					if(stoi(prefix) == 1){
 						break;
 					}
-				}catch(exception e){}
+				}catch(exception const& e){}
 
 				vector<Node<string>*> res = nameTree.searchNodeByPrefix(prefix, isPrefix);
 
@@ -598,7 +599,7 @@ bool stringToIntMax(string str, uint& ref, const uint max){
 			throw invalid_argument("Opção fora de alcance");
 			return false;
 		}
-	}catch(exception excp){
+	}catch(exception const& e){
 		//Valor de string inválido
 		return false;
 	}
