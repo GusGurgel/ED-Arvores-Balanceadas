@@ -118,7 +118,7 @@ public:
     // > um vetor de strings de tamanho varia-
     // > do.
     // ----------------------------------------
-    void addRow(vector<string>);// Adiciona uma linha na table 
+    void addRow(vector<string>); 
 
     // ---------{ show }--------
     // > Mostra tabela na tela.

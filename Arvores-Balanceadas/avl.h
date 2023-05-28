@@ -33,7 +33,7 @@ public:
   
   // --------------{add}----------------
   // > Chamada recursiva do método pri-
-  // > vado recursivo add.
+  // > vado add.
   // >
   // > key = "chave a adicionar"
   // > per = "pessoa ligada a chave"
@@ -52,11 +52,6 @@ public:
   // > destrutor de classe
   // -----------------------
   ~avl_tree();
-
-  // Se não for usadas, remover essas
-  // declarações
-  // avl_tree(const avl_tree& t) = delete;
-  // avl_tree& operator=(const avl_tree& t) = delete;
 	
   // ----------{clear}------------
   // > Método público que printa 
@@ -68,7 +63,8 @@ public:
 
   // -----------{searchKey}-----------
   // > Método públic que pocura um nó 
-  // > com uma chave específica. 
+  // > com uma chave específica. Retor-
+  // > na o endereço do nó
   // >
   // > key = "chave a procurar" 
   // ---------------------------------
@@ -77,7 +73,7 @@ public:
   // -----------{searchNodeByInterval}-----------
   // > Método públic que pocura os nós que estão 
   // > no intervalo entre keyMin e keyMax. Retorna 
-  // > os ponteiros dos nós em um vector
+  // > os ponteiros dos nós em um vector estático.
   // >
   // > keyMin = "chave mínima"
   // > keyMax = "chave máxima" 
