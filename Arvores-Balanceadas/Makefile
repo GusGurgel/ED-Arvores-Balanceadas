@@ -14,7 +14,7 @@ gdate.o: gdate.cpp gdate.h
 
 avl.o: avl.cpp avl.h node.h
 	g++ -c $(CFLAGS) avl.cpp
-	
+
 gtable.o: gtable.cpp gtable.h
 	g++ -c $(CFLAGS) gtable.cpp
 

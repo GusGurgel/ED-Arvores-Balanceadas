@@ -1,0 +1,9 @@
+(undo-tree-save-format-version . 1)
+"3af0b46ae7d78ad36784b60b02552ae26d198418"
+[nil nil nil nil (25777 50787 776957 276000) 0 nil]
+([nil nil ((#("	
+" 0 1 (fontified t face makefile-space) 1 2 (fontified t)) . 363) (undo-tree-id3 . -1) (t 25763 3848 334868 183000)) nil (25777 50787 776950 468000) 0 nil])
+([nil current ((363 . 364)) nil (25777 50790 33828 899000) 0 nil])
+([nil nil ((#("avl" 0 3 (fontified t)) . 324) (undo-tree-id4 . -2) (undo-tree-id5 . -3) (undo-tree-id6 . -3)) ((324 . 327)) (25777 50790 33715 973000) 0 nil] [nil nil ((#("avl.h" 0 5 (fontified t)) . 324) (undo-tree-id0 . -4) (undo-tree-id1 . -5) (undo-tree-id2 . -5)) ((324 . 329)) (25777 50787 776928 552000) 0 nil])
+nil
+nil
